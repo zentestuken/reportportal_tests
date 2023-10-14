@@ -1,0 +1,37 @@
+{
+  "name": "reportportal_tests",
+  "version": "1.0.0",
+  "description": "Testing Report Portal with JS (training project)",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zentestuken/reportportal_tests.git"
+  },
+  "keywords": [
+    "javascript",
+    "test",
+    "automation"
+  ],
+  "author": "Yauhen Viazau",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zentestuken/reportportal_tests/issues"
+  },
+  "homepage": "https://github.com/zentestuken/reportportal_tests#readme",
+  "devDependencies": {
+    "cypress": "^13.3.1",
+    "eslint": "^8.51.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-cypress": "^2.15.1",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-n": "^16.2.0",
+    "eslint-plugin-promise": "^6.1.1"
+  },
+  "dependencies": {
+    "mocha": "^10.2.0"
+  }
+}
