@@ -1,7 +1,7 @@
 import FilterPage from '../../po/filter.page.js'
 import LoginPage from '../../po/login.page.js'
 import launchesPage from '../../po/launches.page.js'
-import { getRandomPostfix } from '../../support/helpers.js'
+import { getRandomString } from '../../support/helpers.js'
 
 const filterPage = new FilterPage()
 const loginPage = new LoginPage()
@@ -11,8 +11,8 @@ let randomFilterDescription
 beforeEach('Open filter page', () => {
   loginPage.login()
   filterPage.openViaSideBar()
-  randomFilterName = `${getRandomPostfix()} test filter`
-  randomFilterDescription = `${getRandomPostfix()} test description`
+  randomFilterName = `${getRandomString()} test filter`
+  randomFilterDescription = `${getRandomString()} test description`
 })
 
 afterEach('Logout', () => {

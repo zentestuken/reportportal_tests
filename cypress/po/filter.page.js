@@ -29,7 +29,7 @@ class FilterPage {
     return this.getFilterRows().eq(rowIndex)
   }
 
-  getFilterName (rowIndex) {
+  getFilterName (rowIndex = 0) {
     return this.getFilterRow(rowIndex).find('span[class*="filterName__link-"]')
   }
 
