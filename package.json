@@ -5,7 +5,11 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pretest": "rm reports/data/* || true",
+    "report-merge": "mochawesome-merge reports/data/*.json -o reports/merged-report.json",
+    "report-generate": "npm run report-merge && marge reports/merged-report.json -o reports --charts true",
+    "run-tests": "cypress run --spec \"cypress/e2e/tests/**api.cy.js\" || npm run report-generate",
+    "test": "npm run run-tests > log/console-log"
   },
   "repository": {
     "type": "git",
@@ -24,12 +28,15 @@
   "homepage": "https://github.com/zentestuken/reportportal_tests#readme",
   "devDependencies": {
     "cypress": "^13.3.1",
+    "cypress-mochawesome-reporter": "^3.6.1",
     "eslint": "^8.51.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-cypress": "^2.15.1",
     "eslint-plugin-import": "^2.28.1",
     "eslint-plugin-n": "^16.2.0",
-    "eslint-plugin-promise": "^6.1.1"
+    "eslint-plugin-promise": "^6.1.1",
+    "log4js": "^6.9.1",
+    "mochawesome-merge": "^4.3.0"
   },
   "dependencies": {
     "mocha": "^10.2.0"
