@@ -8,8 +8,7 @@
     "pretest": "rm reports/data/* || true",
     "report-merge": "mochawesome-merge reports/data/*.json -o reports/merged-report.json",
     "report-generate": "npm run report-merge && marge reports/merged-report.json -o reports --charts true",
-    "run-tests": "cypress run --spec \"cypress/e2e/tests/**api.cy.js\" || npm run report-generate",
-    "test": "npm run run-tests > log/console-log"
+    "test": "cypress run --browser chrome --spec \"cypress/e2e/tests/**.cy.js\" || npm run report-generate"
   },
   "repository": {
     "type": "git",
@@ -35,7 +34,6 @@
     "eslint-plugin-import": "^2.28.1",
     "eslint-plugin-n": "^16.2.0",
     "eslint-plugin-promise": "^6.1.1",
-    "log4js": "^6.9.1",
     "mochawesome-merge": "^4.3.0"
   },
   "dependencies": {
