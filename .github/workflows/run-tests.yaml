@@ -1,6 +1,9 @@
 name: run-tests
-run-name: Install packages and run lint
-on: [pull_request]
+run-name: PRs to main - install packages and run lint
+on: 
+  pull_request:
+    branches: 
+       - main
 jobs:
   install and lint:
     runs-on: ubuntu-latest
