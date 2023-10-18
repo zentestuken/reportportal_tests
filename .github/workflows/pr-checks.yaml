@@ -1,4 +1,4 @@
-name: run-tests
+name: pr-checks
 run-name: PRs to main - install packages and run lint
 on: 
   pull_request:
