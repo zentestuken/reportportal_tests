@@ -1,14 +1,23 @@
 import { defineConfig } from 'cypress'
-import { projectName } from './environment/constants.js'
+import { envData, envDataLocal } from './environment/constants.js'
+import 'dotenv/config'
 
 export default defineConfig({
   e2e: {
-    baseUrl: `http://127.0.0.1:8080/ui/${projectName}/`,
-    apiBaseUrl: `http://127.0.0.1:8080/api/v1/${projectName}/`,
-    supportFile: 'cypress/support/e2e.js'
-    // setupNodeEvents (on, config) {
-    //   require('cypress-mochawesome-reporter/plugin')(on)
-    // }
+    supportFile: 'cypress/support/e2e.js',
+    setupNodeEvents (on, config) {
+      config.env = {
+        ...process.env,
+        ...config.env
+      }
+      const environment = config.env.ENV === 'local' ? envDataLocal : envData
+      config.baseUrl = `${environment.baseURL}/ui/${environment.projectName}/`
+      config.apiBaseUrl = `${environment.baseURL}/api/v1/${environment.projectName}/`
+      config.username = environment.username
+      config.password = config.env.ENV === 'local' ? config.env.RP_PASSWORD_LOCAL : config.env.RP_PASSWORD
+      config.apiToken = config.env.ENV === 'local' ? config.env.RP_APITOKEN_LOCAL : config.env.RP_APITOKEN
+      return config
+    }
   },
   reporter: 'mochawesome',
   reporterOptions: {
@@ -17,7 +26,6 @@ export default defineConfig({
     reportDir: 'reports/data',
     overwrite: false,
     mochaFile: 'report.html',
-    // reportFileName: 'report[hash].html',
     embeddedScreenshots: true,
     inlineAssets: true,
     saveAllAttempts: false,

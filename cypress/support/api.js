@@ -1,12 +1,10 @@
-import { apiToken } from '../../environment/constants'
-
 const baseUrl = Cypress.config().apiBaseUrl
 
 export const getAllFilters = () => {
   cy.request({
     method: 'GET',
     url: `${baseUrl}filter`,
-    headers: { Authorization: `Bearer ${apiToken}` }
+    headers: { Authorization: `Bearer ${Cypress.config('apiToken')}` }
   }).as('response')
   return cy.get('@response').then(res => res.body.content)
 }
@@ -15,7 +13,7 @@ export const createFilter = (conditions, name, description = '', sortingColumn =
   cy.request({
     method: 'POST',
     url: `${baseUrl}filter`,
-    headers: { Authorization: `Bearer ${apiToken}` },
+    headers: { Authorization: `Bearer ${Cypress.config('apiToken')}` },
     body: {
       conditions,
       description,
@@ -36,7 +34,7 @@ export const updateFilter = (id, conditions, name, description = '', sortingColu
   cy.request({
     method: 'PUT',
     url: `${baseUrl}filter`,
-    headers: { Authorization: `Bearer ${apiToken}` },
+    headers: { Authorization: `Bearer ${Cypress.config('apiToken')}` },
     body: {
       elements: [{
         conditions,
@@ -60,7 +58,7 @@ export const updateFilterById = (id, conditions, name, description = '', sorting
   cy.request({
     method: 'PUT',
     url: `${baseUrl}filter/${id}`,
-    headers: { Authorization: `Bearer ${apiToken}` },
+    headers: { Authorization: `Bearer ${Cypress.config('apiToken')}` },
     body: {
       conditions,
       description,
@@ -74,6 +72,15 @@ export const updateFilterById = (id, conditions, name, description = '', sorting
       ],
       type: 'launch'
     }
+  }).as('response')
+  return cy.get('@response').then(res => res.body)
+}
+
+export const deleteFilter = id => {
+  cy.request({
+    method: 'DELETE',
+    url: `${baseUrl}filter/${id}`,
+    headers: { Authorization: `Bearer ${Cypress.config('apiToken')}` }
   }).as('response')
   return cy.get('@response').then(res => res.body)
 }

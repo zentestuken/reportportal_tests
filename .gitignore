@@ -133,3 +133,6 @@ dist
 
 #  allow .github dir and its contents
 !.github
+
+#cypress downloads folder
+cypress/downloads 
