@@ -9,7 +9,8 @@
     "pretest": "rm reports/data/* || true",
     "report-merge": "mochawesome-merge reports/data/*.json -o reports/merged-report.json",
     "report-generate": "npm run report-merge && marge reports/merged-report.json -o reports --charts true",
-    "test": "npm run lint && cypress run --browser chrome --spec \"cypress/e2e/tests/**.cy.js\" || npm run report-generate"
+    "test": "npm run lint && cypress run --browser chrome --spec \"cypress/e2e/tests/**.cy.js\" || npm run report-generate",
+    "test-local": "npm run lint && npm run pretest && cypress run --browser chrome --spec \"cypress/e2e/tests/**.cy.js\" --env ENV=local || npm run report-generate"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,7 @@
     "mochawesome-merge": "^4.3.0"
   },
   "dependencies": {
+    "dotenv": "^16.3.1",
     "mocha": "^10.2.0"
   }
 }
