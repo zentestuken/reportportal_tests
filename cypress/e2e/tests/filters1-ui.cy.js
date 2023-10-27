@@ -20,7 +20,7 @@ afterEach('Logout', () => {
   loginPage.logout()
 })
 
-describe('Filters page', () => {
+describe('Filters page - part 1', () => {
   it('Add a new filter', () => {
     filterPage.clickAddFilter()
     cy.url().should('contain', launchesPage.url)
@@ -43,32 +43,6 @@ describe('Filters page', () => {
       const filterText = row.text()
       filterPage.deleteFilter()
       filterPage.checkFilterAbsent(filterText)
-    })
-  })
-
-  it('Edit a filter', () => {
-    filterPage.getFilterRow().then(row => {
-      const filterText = row.text()
-      filterPage.openFilter()
-      cy.url().should('contain', launchesPage.url)
-      launchesPage.editOpenedFilterData(randomFilterName, randomFilterDescription)
-      launchesPage.goToFiltersPage()
-      cy.url().should('contain', filterPage.url)
-      filterPage.checkFilterRow(randomFilterName, randomFilterDescription)
-      filterPage.checkFilterAbsent(filterText)
-    })
-  })
-
-  it('Clone a filter', () => {
-    filterPage.getFilterName().then(name => {
-      const filterName = name.text()
-      filterPage.openFilter()
-      cy.url().should('contain', launchesPage.url)
-      launchesPage.cloneOpenedFilter(randomFilterName, randomFilterDescription)
-      launchesPage.goToFiltersPage()
-      cy.url().should('contain', filterPage.url)
-      filterPage.checkFilterRow(randomFilterName, randomFilterDescription)
-      filterPage.checkFilterRow(filterName)
     })
   })
 })
