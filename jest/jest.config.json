@@ -1,0 +1,11 @@
+{
+  "reporters": [
+    "default",
+    ["../node_modules/jest-html-reporter", {
+      "pageTitle": "Test Report",
+      "outputPath": "jest/jest-report.html",
+      "includeFailureMsg": true
+    }]
+  ],
+  "testMatch": ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test|cy).[tj]s?(x)"]
+}

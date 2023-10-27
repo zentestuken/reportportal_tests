@@ -12,7 +12,6 @@ runner-results
 multi-reporter-config.json
 cypress/parallel-weights.json
 jest/*.html
-jest/jest.config.json
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
