@@ -1,0 +1,14 @@
+{
+  "reporterEnabled": "mochawesome",
+  "mochawesomeReporterOptions": { 
+    "charts": true,
+    "reportPageTitle": "Test Run Report",
+    "reportDir": "reports/data",
+    "overwrite": false,
+    "embeddedScreenshots": true,
+    "inlineAssets": true,
+    "saveAllAttempts": false,
+    "html": false,
+    "json": true
+  }
+}

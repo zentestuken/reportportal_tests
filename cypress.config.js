@@ -1,6 +1,9 @@
 import { defineConfig } from 'cypress'
 import { envData, envDataLocal } from './environment/constants.js'
 import 'dotenv/config'
+import fs from 'node:fs'
+
+const mochawesomeOptions = JSON.parse(fs.readFileSync('./parallel-reporter-config.json')).mochawesomeReporterOptions
 
 export default defineConfig({
   e2e: {
@@ -20,16 +23,5 @@ export default defineConfig({
     }
   },
   reporter: 'mochawesome',
-  reporterOptions: {
-    charts: true,
-    reportPageTitle: 'Test Run Report',
-    reportDir: 'reports/data',
-    overwrite: false,
-    mochaFile: 'report.html',
-    embeddedScreenshots: true,
-    inlineAssets: true,
-    saveAllAttempts: false,
-    html: false,
-    json: true
-  }
+  reporterOptions: mochawesomeOptions
 })

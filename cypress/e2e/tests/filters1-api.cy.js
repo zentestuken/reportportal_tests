@@ -1,7 +1,7 @@
-import { createFilter, deleteFilter, getAllFilters, updateFilter, updateFilterById } from '../../support/api'
-import { getRandomString } from '../../support/helpers.js'
+import { getRandomString } from '../../support/helpers'
+import { getAllFilters, createFilter, deleteFilter } from '../../support/api.js'
 
-describe('Filters page (API tests)', () => {
+describe('Filters page (API tests) - part 1', () => {
   const newFilterData = {
     name: `${getRandomString()} New filter via API`,
     description: `${getRandomString()} Created via API ${getRandomString()}`,
@@ -22,25 +22,6 @@ describe('Filters page (API tests)', () => {
         filteringField: 'user',
         condition: 'in',
         value: 'superadmin'
-      }
-    ]
-  }
-
-  const updatedFilterData = {
-    name: `${getRandomString()} updated filter via API`,
-    description: `${getRandomString()} Updated via API ${getRandomString()}`,
-    sortingColumn: 'number',
-    isAscending: false,
-    conditions: [
-      {
-        filteringField: 'name',
-        condition: 'cnt',
-        value: 'Tests'
-      },
-      {
-        filteringField: 'compositeAttribute',
-        condition: '!any',
-        value: 'platform:windows'
       }
     ]
   }
@@ -66,28 +47,10 @@ describe('Filters page (API tests)', () => {
     })
   })
 
-  it('Update a filter', () => {
-    getAllFilters().then(filters => {
-      const id = filters[0].id
-      updateFilter(id, updatedFilterData.conditions, updatedFilterData.name, updatedFilterData.description, updatedFilterData.sortingColumn, updatedFilterData.isAscending).then(body => {
-        expect(body).to.have.property('message')
-      })
-    })
-  })
-
-  it('Update a filter by ID', () => {
-    getAllFilters().then(filters => {
-      const id = filters[1].id
-      updateFilterById(id, updatedFilterData.conditions, updatedFilterData.name, updatedFilterData.description, updatedFilterData.sortingColumn, updatedFilterData.isAscending).then(body => {
-        expect(body.message).to.equal(`User filter with ID = '${id}' successfully updated.`)
-      })
-    })
-  })
-
   it('Delete a filter', () => {
     getAllFilters().then(filters => {
       const id = filters[0].id
-      deleteFilter(id).then(body => {
+      return deleteFilter(id).then(body => {
         expect(body.message).to.equal(`User filter with ID = '${id}' successfully deleted.`)
       })
     })
