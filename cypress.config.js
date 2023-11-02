@@ -2,13 +2,19 @@ import { defineConfig } from 'cypress'
 import { envData, envDataLocal } from './environment/constants.js'
 import 'dotenv/config'
 import fs from 'node:fs'
+// eslint-disable-next-line import/no-named-default
+import cucumber from 'cypress-cucumber-preprocessor'
 
 const mochawesomeOptions = JSON.parse(fs.readFileSync('./parallel-reporter-config.json')).mochawesomeReporterOptions
 
 export default defineConfig({
   e2e: {
+    specPattern: ['**/*.feature', '**/tests/*.cy.js'],
     supportFile: 'cypress/support/e2e.js',
-    setupNodeEvents (on, config) {
+    defaultCommandTimeout: 10000,
+    async setupNodeEvents (on, config) {
+      // await cucumber.addCucumberPreprocessorPlugin(on, config)
+      await on('file:preprocessor', cucumber.default())
       config.env = {
         ...process.env,
         ...config.env

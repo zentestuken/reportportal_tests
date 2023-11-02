@@ -88,6 +88,4 @@ class LaunchesPage {
   }
 }
 
-const launchesPage = new LaunchesPage()
-
-export default launchesPage
+export default LaunchesPage
