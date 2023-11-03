@@ -28,6 +28,7 @@ Examples:
 Scenario: Delete a filter
   When I delete existing filter
   Then filter row with deleted filter is not shown
+
 @delete2
 Scenario: Delete a filter (duplicate)
   When I delete existing filter

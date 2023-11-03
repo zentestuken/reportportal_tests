@@ -20,8 +20,8 @@
     "test-bdd-local": "npm run lint && npm run pretest && cypress run --browser chrome --spec \"cypress/integration/*feature\" --env ENV=local || npm run report-generate",
     "test-bdd-parallel": "npm run lint && npm run pretest && cypress-parallel -s cy -t 2 -d cypress/integration -a '\"--config-file cypress.config.js\"' -r cypress-multi-reporters --reporter-options configFile=parallel-reporter-config.json || npm run report-generate",
     "test-bdd-parallel-local": "npm run lint && npm run pretest && cypress-parallel -s cy -t 2 -d cypress/integration -a '\"--env ENV=local --config-file cypress.config.js\"' -r cypress-multi-reporters --reporter-options configFile=parallel-reporter-config.json || npm run report-generate",
-    "cy-tags": "cypress-tags run  --browser chrome --env TAGS=\"@ui and not (@delete2 or @create)\"",
-    "test-bdd-parallel-tags": "npm run lint && npm run pretest && cypress-parallel -s cy-tags -t 2 -d cypress/integration -a '\"--config-file cypress.config.js\"' -r cypress-multi-reporters --reporter-options configFile=parallel-reporter-config.json || npm run report-generate"
+    "testbddtags": "npm run lint && npm run pretest && cypress-tags run --browser chrome --spec \"cypress/integration/*feature\" --env TAGS=\"@ui and not (@delete2 or @create)\" ENV=local",
+    "posttestbddtags": "npm run report-generate"
   },
   "repository": {
     "type": "git",
