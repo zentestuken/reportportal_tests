@@ -1,10 +1,11 @@
 import FilterPage from '../../po/filter.page.js'
 import LoginPage from '../../po/login.page.js'
-import launchesPage from '../../po/launches.page.js'
+import LaunchesPage from '../../po/launches.page.js'
 import { getRandomString } from '../../support/helpers.js'
 
 const filterPage = new FilterPage()
 const loginPage = new LoginPage()
+const launchesPage = new LaunchesPage()
 let randomFilterName
 let randomFilterDescription
 

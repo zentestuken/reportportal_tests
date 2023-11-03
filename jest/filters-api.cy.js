@@ -29,7 +29,6 @@ describe('Filters page (API tests)', () => {
 
   it('Get all filters', async () => {
     const filters = await getAllFilters()
-    console.log('1')
     // eslint-disable-next-line no-unused-expressions
     expect(filters).not.to.be.empty
     filters.forEach(filter => {
@@ -43,13 +42,11 @@ describe('Filters page (API tests)', () => {
   })
 
   it('Create new filter', async () => {
-    console.log('2')
     const body = await createFilter(newFilterData.conditions, newFilterData.name, newFilterData.description, newFilterData.sortingColumn, newFilterData.isAscending)
     expect(body).to.have.property('id')
   })
 
   it('Delete a filter', async () => {
-    console.log('3')
     const filters = await getAllFilters()
     const id = filters[0].id
     const body = await deleteFilter(id)

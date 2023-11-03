@@ -24,7 +24,6 @@ describe('Filters page (API tests)', () => {
   }
 
   it('Update a filter', async () => {
-    console.log('4')
     const filters = await getAllFilters()
     const id = filters[0].id
     const body = await updateFilter(id, updatedFilterData.conditions, updatedFilterData.name, updatedFilterData.description, updatedFilterData.sortingColumn, updatedFilterData.isAscending)
@@ -32,7 +31,6 @@ describe('Filters page (API tests)', () => {
   })
 
   it('Update a filter by ID', async () => {
-    console.log('5')
     const filters = await getAllFilters()
     const id = filters[1].id
     const body = await updateFilterById(id, updatedFilterData.conditions, updatedFilterData.name, updatedFilterData.description, updatedFilterData.sortingColumn, updatedFilterData.isAscending)
