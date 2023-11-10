@@ -11,8 +11,10 @@
     "report-generate": "npm run report-merge && marge reports/merged-report.json -o reports --charts true",
     "test": "npm run lint && cypress run --browser chrome --spec \"cypress/e2e/tests/**.cy.js\" || npm run report-generate",
     "test-local": "npm run lint && npm run pretest && cypress run --browser chrome --spec \"cypress/e2e/tests/**.cy.js\" --env ENV=local || npm run report-generate",
-    "jest-api": "npm run lint && NODE_OPTIONS=--experimental-vm-modules jest --config 'jest/jest.config.json' --maxWorkers 2",
-    "jest-api-local": "npm run lint && NODE_OPTIONS=--experimental-vm-modules ENV=local jest --config 'jest/jest.config.json' --maxWorkers 2",
+    "jest-api-axios": "npm run lint && NODE_OPTIONS=--experimental-vm-modules APICLIENT=axios jest --config 'jest/jest.config.json' --maxWorkers 2",
+    "jest-api-axios-local": "npm run lint && NODE_OPTIONS=--experimental-vm-modules ENV=local APICLIENT=axios jest --config 'jest/jest.config.json' --maxWorkers 2",
+    "jest-api-playwright": "npm run lint && NODE_OPTIONS=--experimental-vm-modules APICLIENT=playwright jest --config 'jest/jest.config.json' --maxWorkers 2",
+    "jest-api-playwright-local": "npm run lint && NODE_OPTIONS=--experimental-vm-modules ENV=local APICLIENT=playwright jest --config 'jest/jest.config.json' --maxWorkers 2",
     "cy": "cypress run --browser chrome",
     "test-parallel": "npm run lint && npm run pretest && cypress-parallel -s cy -t 2 -d cypress/e2e/tests -a '\"--config-file cypress.config.js\"' -r cypress-multi-reporters --reporter-options configFile=parallel-reporter-config.json || npm run report-generate",
     "test-parallel-local": "npm run lint && npm run pretest && cypress-parallel -s cy -t 2 -d cypress/e2e/tests -a '\"--env ENV=local --config-file cypress.config.js\"' -r cypress-multi-reporters --reporter-options configFile=parallel-reporter-config.json || npm run report-generate",
@@ -37,9 +39,13 @@
   "bugs": {
     "url": "https://github.com/zentestuken/reportportal_tests/issues"
   },
-  "cypress-cucumber-preprocessor": { "nonGlobalStepDefinitions": true },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true
+  },
   "homepage": "https://github.com/zentestuken/reportportal_tests#readme",
   "devDependencies": {
+    "@playwright/test": "^1.39.0",
+    "@types/node": "^20.8.10",
     "axios": "^1.5.1",
     "chai": "^4.3.10",
     "cypress": "^13.3.1",

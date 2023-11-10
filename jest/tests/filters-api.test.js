@@ -1,8 +1,8 @@
 import { expect } from 'chai'
-import { getRandomString } from '../cypress/support/helpers'
-import { getAllFilters, createFilter, deleteFilter } from './api'
+import { getRandomString } from '../../cypress/support/helpers'
+import { getAllFilters, createFilter, deleteFilter } from '../support/api'
 
-describe('Filters page (API tests)', () => {
+describe('Filters page (API tests) - part 1', () => {
   const newFilterData = {
     name: `${getRandomString()} New filter via API`,
     description: `${getRandomString()} Created via API ${getRandomString()}`,
@@ -28,7 +28,8 @@ describe('Filters page (API tests)', () => {
   }
 
   it('Get all filters', async () => {
-    const filters = await getAllFilters()
+    const response = await getAllFilters()
+    const filters = response.body.content
     // eslint-disable-next-line no-unused-expressions
     expect(filters).not.to.be.empty
     filters.forEach(filter => {
@@ -42,14 +43,14 @@ describe('Filters page (API tests)', () => {
   })
 
   it('Create new filter', async () => {
-    const body = await createFilter(newFilterData.conditions, newFilterData.name, newFilterData.description, newFilterData.sortingColumn, newFilterData.isAscending)
-    expect(body).to.have.property('id')
+    const response = await createFilter(newFilterData.conditions, newFilterData.name, newFilterData.description, newFilterData.sortingColumn, newFilterData.isAscending)
+    expect(response.body).to.have.property('id')
   })
 
   it('Delete a filter', async () => {
-    const filters = await getAllFilters()
-    const id = filters[0].id
-    const body = await deleteFilter(id)
-    expect(body.message).to.equal(`User filter with ID = '${id}' successfully deleted.`)
+    const alFiltersResponse = await getAllFilters()
+    const id = alFiltersResponse.body.content[0].id
+    const response = await deleteFilter(id)
+    expect(response.body.message).to.equal(`User filter with ID = '${id}' successfully deleted.`)
   })
 })

@@ -7,5 +7,5 @@
       "includeFailureMsg": true
     }]
   ],
-  "testMatch": ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test|cy).[tj]s?(x)"]
+  "testMatch": ["**/__tests__/**/*.[jt]s?(x)", "**/**/?(*.)+(spec|test|cy).[tj]s?(x)"]
 }
