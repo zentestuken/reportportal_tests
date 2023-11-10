@@ -139,4 +139,10 @@ dist
 !.github
 
 #cypress downloads folder
-cypress/downloads 
+cypress/downloads
+
+#playwright files
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
