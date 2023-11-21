@@ -44,7 +44,7 @@
   },
   "homepage": "https://github.com/zentestuken/reportportal_tests#readme",
   "devDependencies": {
-    "@playwright/test": "^1.39.0",
+    "@playwright/test": "^1.40.0",
     "@types/node": "^20.8.10",
     "axios": "^1.5.1",
     "chai": "^4.3.10",
