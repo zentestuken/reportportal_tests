@@ -5,6 +5,7 @@ class FilterPage {
   constructor (page) {
     this.url = '/filters'
     this.page = page
+    this.noFiltersMessage = this.page.locator('div[class^="noFiltersBlock__title-"]')
   }
 
   open () {
@@ -38,24 +39,51 @@ class FilterPage {
     return this.getFilterRow(rowIndex).locator('span[class*="filterName__link-"]')
   }
 
-  deleteFilter (rowIndex = 0) {
-    return this.getFilterRow(rowIndex).then(row => {
-      row.locator('div[class^="deleteFilterButton"]').click()
-      this.page.locator('div[class^=modalFooter] button').filter({ hasText: 'Delete' }).click()
-    })
+  async deleteFilter (rowIndex = 0) {
+    const row = await this.getFilterRow(rowIndex)
+    await row.locator('div[class^="deleteFilterButton"]').click()
+    await this.page.locator('div[class^=modalFooter] button').filter({ hasText: 'Delete' }).click()
   }
 
   checkFilterAbsent (name) {
-    return expect(this.getFilterRows()).not.toContainText(name)
+    return expect(this.getFilterRows().filter({ hasText: name })).toHaveCount(0)
   }
 
   async checkFilterRow (name, description) {
-    await expect(this.getFilterRows()).toContainText(name)
-    if (description) await expect(this.getFilterRows()).toContainText(description)
+    await expect(this.getFilterRows().filter({ hasText: name }).first()).toBeVisible()
+    if (description) await expect(this.getFilterRows().filter({ hasText: description }).first()).toBeVisible()
   }
 
   openFilter (rowIndex = 0) {
     return this.getFilterRow(rowIndex).locator('a[class^="filterName__name-link-"]').click()
+  }
+
+  async getFilterWithDisplayOn () {
+    const row = await this.getFilterRows().filter({ has: this.page.locator('span[class*="inputSwitcher__on"]') }).last()
+    return {
+      row,
+      name: await row.locator('a[class^="filterName__name-link-"]').textContent()
+    }
+  }
+
+  async getFilterWithDisplayOff () {
+    const row = await this.getFilterRows().filter({ hasNot: this.page.locator('span[class*="inputSwitcher__on"]') }).last()
+    return {
+      row,
+      name: await row.locator('a[class^="filterName__name-link-"]').textContent()
+    }
+  }
+
+  switchDisplayOnLaunches (rowElement) {
+    return rowElement.locator('span[class^="displayFilter__switcher-label"]').click()
+  }
+
+  getPageControl () {
+    return this.page.locator('span[class^="pageSizeControl__size-text"]')
+  }
+
+  getPageControlInput () {
+    return this.page.locator('div[class^="pageSizeControl__size-input"] input')
   }
 }
 

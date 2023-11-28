@@ -17,12 +17,12 @@ class LaunchesPage {
   }
 
   openViaSideBar () {
-    const sideBar = new SideBar()
+    const sideBar = new SideBar(this.page)
     return sideBar.launchesBtn().click()
   }
 
   goToFiltersPage () {
-    const sideBar = new SideBar()
+    const sideBar = new SideBar(this.page)
     return sideBar.filtersBtn().click()
   }
 
@@ -76,7 +76,7 @@ class LaunchesPage {
     await this.page.locator('input[placeholder="Enter filter name"]').fill(filterName)
     await this.page.locator('pre[role="presentation"]').click()
     await this.page.keyboard.press('Control+A')
-    await this.page.locator('pre[role="presentation"]').fill(filterDescription)
+    await this.page.locator('pre[role="presentation"]').type(filterDescription)
     await this.page.locator('div[class^=modalFooter] button').filter({ hasText: 'Add' }).click()
   }
 
@@ -87,7 +87,7 @@ class LaunchesPage {
     await this.page.locator('input[placeholder="Enter filter name"]').fill(updatedName)
     await this.page.locator('pre[role="presentation"]').click()
     await this.page.keyboard.press('Control+A')
-    await this.page.locator('pre[role="presentation"]').fill(updatedDescription)
+    await this.page.locator('pre[role="presentation"]').type(updatedDescription)
     await this.page.locator('div[class^=modalFooter] button').filter({ hasText: 'Update' }).click()
   }
 
@@ -99,8 +99,13 @@ class LaunchesPage {
     await this.page.locator('input[placeholder="Enter filter name"]').fill(updatedName)
     await this.page.locator('pre[role="presentation"]').click()
     await this.page.keyboard.press('Control+A')
-    await this.page.locator('pre[role="presentation"]').fill(updatedDescription)
+    await this.page.locator('pre[role="presentation"]').type(updatedDescription)
     await this.page.locator('div[class^=modalFooter] button').filter({ hasText: 'Add' }).click()
+  }
+
+  checkFilterDisplayed (filterName, isDisplayed = true) {
+    if (isDisplayed) return expect(this.page.locator('span[class^="filterItem__name"]').filter({ hasText: filterName })).toBeVisible()
+    else return expect(this.page.locator('span[class^="filterItem__name"]').filter({ hasText: filterName })).toHaveCount(0)
   }
 }
 
