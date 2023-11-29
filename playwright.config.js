@@ -1,6 +1,10 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test'
-import { apiBaseUrl, apiToken } from './jest/support/config'
+import 'dotenv/config'
+import { envData, envDataLocal } from './environment/constants.js'
+
+const environment = process.env.ENV === 'local' ? envDataLocal : envData
+const baseUrl = `${environment.baseURL}/ui/${environment.projectName}/`
 
 /**
  * Read environment variables from file.
@@ -12,7 +16,11 @@ import { apiBaseUrl, apiToken } from './jest/support/config'
  * @see https://playwright.dev/docs/test-configuration
  */
 export default defineConfig({
+  expect: {
+    timeout: 15000
+  },
   testDir: './playwright/tests',
+  timeout: 120000,
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -22,17 +30,20 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [['html', { open: 'never' }]],
+  reporter: [['html', { open: 'never' }], ['list']],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: apiBaseUrl,
-    extraHTTPHeaders: {
-      Authorization: `Bearer ${apiToken}`
-    },
+    baseURL: baseUrl,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry'
+    trace: 'on-first-retry',
+    actionTimeout: 15000,
+    video: 'off',
+    launchOptions: {
+      // slowMo: 1000,
+    },
+    screenshot: 'only-on-failure'
   },
 
   /* Configure projects for major browsers */
@@ -40,17 +51,17 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] }
+    },
+
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] }
     }
 
     // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] }
-    // },
-
-    // {
     //   name: 'webkit',
-    //   use: { ...devices['Desktop Safari'] }
-    // }
+    //   use: { ...devices['Desktop Safari'] },
+    // },
 
     /* Test against mobile viewports. */
     // {

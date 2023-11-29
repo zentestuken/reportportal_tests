@@ -23,7 +23,9 @@
     "test-bdd-parallel": "npm run lint && npm run pretest && cypress-parallel -s cy -t 2 -d cypress/integration -a '\"--config-file cypress.config.js\"' -r cypress-multi-reporters --reporter-options configFile=parallel-reporter-config.json || npm run report-generate",
     "test-bdd-parallel-local": "npm run lint && npm run pretest && cypress-parallel -s cy -t 2 -d cypress/integration -a '\"--env ENV=local --config-file cypress.config.js\"' -r cypress-multi-reporters --reporter-options configFile=parallel-reporter-config.json || npm run report-generate",
     "testbddtags": "npm run lint && npm run pretest && cypress-tags run --browser chrome --spec \"cypress/integration/*feature\" --env TAGS=\"@ui and not (@delete2 or @create)\" ENV=local",
-    "posttestbddtags": "npm run report-generate"
+    "posttestbddtags": "npm run report-generate",
+    "playwright-test": "npm run lint && playwright test",
+    "playwright-test-local": "npm run lint && ENV=local playwright test"
   },
   "repository": {
     "type": "git",
@@ -44,7 +46,7 @@
   },
   "homepage": "https://github.com/zentestuken/reportportal_tests#readme",
   "devDependencies": {
-    "@playwright/test": "^1.39.0",
+    "@playwright/test": "^1.40.0",
     "@types/node": "^20.8.10",
     "axios": "^1.5.1",
     "chai": "^4.3.10",
